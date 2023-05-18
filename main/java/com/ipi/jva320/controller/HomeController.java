@@ -33,7 +33,7 @@ public class HomeController {
     @GetMapping(value = "/salaries/{id}")
     public String salarie(ModelMap model, @PathVariable Long id) {
         model.put("salarie", salarieAideADomicileService.getSalarie(id));
-        return "detail_Salarie";
+        return "detail_Salarie";    
     }
 
     @GetMapping(value = "/salaries/aide/new")
@@ -42,8 +42,12 @@ public class HomeController {
     }
 
     @PostMapping(value = "/salaries/save")
-    public String createSalarie(SalarieAideADomicile salarie) throws SalarieException {
-        salarieAideADomicileService.creerSalarieAideADomicile(salarie);
+    public String createSalarie(ModelMap model, SalarieAideADomicile salarie) throws SalarieException {
+        try{
+            salarieAideADomicileService.creerSalarieAideADomicile(salarie);
+        }catch(Exception e){
+            model.put("fieldError", true);
+        }
         return "redirect:/salaries/" + salarie.getId();
     }
 
@@ -54,8 +58,12 @@ public class HomeController {
     }
 
     @GetMapping(value = "/salaries/{id}/delete")
-    public String deleteSalarie(@PathVariable Long id) throws SalarieException {
-        salarieAideADomicileService.deleteSalarieAideADomicile(id);
+    public String deleteSalarie(@PathVariable Long id, ModelMap model) throws SalarieException {
+        try{
+            salarieAideADomicileService.deleteSalarieAideADomicile(id);
+        }catch(Exception e){
+            model.put("typeError", true);
+        }
         return "redirect:/salaries";
     }
 
