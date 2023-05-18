@@ -31,5 +31,6 @@ public class DataInitService implements CommandLineRunner {
             new SalarieAideADomicile("Pat", LocalDate.now(), LocalDate.now(),
             58, 0,
             178, 5, 89));
+            this.salarieAideADomicileService.creerSalarieAideADomicile(
     }
 }
