@@ -57,6 +57,13 @@ public class SalarieAideADomicileService {
 
     /**
      * @return le nombre de salariés dans la base
+    */
+    public SalarieAideADomicile getSalarie(String nom) {
+        return salarieAideADomicileRepository.findByNom(nom);
+    }
+
+    /**
+     * @return le nombre de salariés dans la base
      */
     public List<SalarieAideADomicile> getSalaries(String nom, Pageable pageable) {
         return salarieAideADomicileRepository.findAllByNom(nom, pageable);

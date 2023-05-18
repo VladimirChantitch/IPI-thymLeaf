@@ -3,10 +3,14 @@ package com.ipi.jva320.controller;
 import com.ipi.jva320.exception.SalarieException;
 import com.ipi.jva320.model.SalarieAideADomicile;
 import com.ipi.jva320.service.SalarieAideADomicileService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -56,6 +60,15 @@ public class HomeController {
     public String getSalaries(ModelMap model) {
         model.put("salaries", salarieAideADomicileService.getSalaries());
         return "list";
+    }
+
+    @PostMapping(value = "/salaries")
+    public String searchSalaries(@RequestParam("matricule") String matricule, ModelMap model)  {
+        SalarieAideADomicile salarieAideADomicile = salarieAideADomicileService.getSalarie(matricule);
+        if (salarieAideADomicile != null){
+            return (new StringBuilder("redirect:/salaries/").append(salarieAideADomicile.getId())).toString();
+        }
+        return"/home";
     }
 
 }
