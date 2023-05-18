@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Controller
 public class HomeController {
@@ -56,9 +59,19 @@ public class HomeController {
         return "redirect:/salaries";
     }
 
-    @GetMapping(value = "/salaries")
-    public String getSalaries(ModelMap model) {
-        model.put("salaries", salarieAideADomicileService.getSalaries());
+    @GetMapping("/salaries")
+    public String getSalaries(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "10") int size,
+                              ModelMap model) {
+        Page<SalarieAideADomicile> salariePage = salarieAideADomicileService.getSalaries(PageRequest.of(page, size));
+        
+        model.put("salaries", salariePage.getContent());
+        model.put("currentPage", page);
+        model.put("totalPages", salariePage.getTotalPages());
+        model.put("pageSize", size);
+        model.put("sortProperty", "nom"); 
+        model.put("sortDirection", "ASC");
+        
         return "list";
     }
 
