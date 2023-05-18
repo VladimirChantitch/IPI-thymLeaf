@@ -46,6 +46,12 @@ public class HomeController {
         return "redirect:/salaries/" + salarie.getId();
     }
 
+    @GetMapping(value = "/salaries/{id}/delete")
+    public String deleteSalarie(@PathVariable Long id) throws SalarieException {
+        salarieAideADomicileService.deleteSalarieAideADomicile(id);
+        return "redirect:/salaries";
+    }
+
     @GetMapping(value = "/salaries")
     public String getSalaries(ModelMap model) {
         model.put("salaries", salarieAideADomicileService.getSalaries());
