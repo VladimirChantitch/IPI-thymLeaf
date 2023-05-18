@@ -92,9 +92,7 @@
     
     <div class="row">
         <div class="col-lg-6">
-            <ul class="list-group list-unstyled" th:if="${fieldError}">
-                <li class="alert alert-danger" role="alert">Erreur dans un champ !</li>
-            </ul>
+            <div th:replace="errors :: error_fragment" th:with="errorMessage=${'fieldError'}">Erreur dans un champ !</div>
         </div>
     </div>
 
@@ -109,9 +107,7 @@
 
     <div class="row">
         <table>
-            <tr th:if="${typeError}">
-                <td class="alert alert-danger" role="alert">Erreur de type de données !</td>
-            </tr>
+            <div th:replace="errors :: error_fragment" th:with="errorMessage=${'typeError'}">Erreur de type de données !</div>
         </table>
     </div>
 </div>

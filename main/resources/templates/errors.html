@@ -1,0 +1,10 @@
+<!-- errors.html contenant les fragments partagés pour la gestion des error -->
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div class="error-div" th:fragment="error_fragment">
+            <ul class="list-group list-unstyled" th:if="${errorMessage}">
+                <li class="alert alert-danger" role="alert" th:text="${errorMessage}"></li>
+            </ul>
+        </div>
+    </body>
+</html>
